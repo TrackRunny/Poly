@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from logging_files.information_logging import logger
 
 
 class Information(commands.Cog):
@@ -17,15 +18,17 @@ class Information(commands.Cog):
         )
         embed.set_thumbnail(url=ctx.guild.icon_url_as(size=4096, format=None, static_format="png"))
         embed.add_field(name="‣ Moderation commands:", inline=False, value="`p!commands moderation`")
-        embed.add_field(name="‣ Information commands:", inline=False, value="`p!commands information`")
-        embed.add_field(name="‣ Fun commands:", inline=False, value="`p!commands fun`")
-        embed.add_field(name="‣ Utility commmands:", inline=False, value="`p!commands utility`")
-        embed.add_field(name="‣ Settings:", inline=False, value="`p!commands settings`")
-        embed.add_field(name="‣ Music commands:", inline=False, value="`p!commands music`")
+        embed.add_field(name="‣ Information commands: (Coming Soon)", inline=False, value="`p!commands information`")
+        embed.add_field(name="‣ Fun commands: (Coming Soon)", inline=False, value="`p!commands fun`")
+        embed.add_field(name="‣ Utility commmands: (Coming Soon)", inline=False, value="`p!commands utility`")
+        embed.add_field(name="‣ Settings: (Coming Soon)", inline=False, value="`p!commands settings`")
+        embed.add_field(name="‣ Music commands: (Coming Soon)", inline=False, value="`p!commands music`")
         embed.set_footer(icon_url=ctx.author.avatar_url_as(size=4096, format=None, static_format="png"),
                          text="— Created by Poly Developer Team")
 
         await ctx.send(embed=embed)
+
+        logger.info(f"Information | Sent Commands: {ctx.author}")
 
     @poly_commands.command()
     async def moderation(self, ctx):
@@ -39,6 +42,8 @@ class Information(commands.Cog):
         )
 
         await ctx.send(embed=embed)
+
+        logger.info(f"Information | Sent Moderation Commands: {ctx.author}")
 
 
 def setup(client):
