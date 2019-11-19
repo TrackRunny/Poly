@@ -18,9 +18,9 @@ class Information(commands.Cog):
         )
         embed.set_thumbnail(url=ctx.guild.icon_url_as(size=4096, format=None, static_format="png"))
         embed.add_field(name="‣ Moderation commands:", inline=False, value="`p!commands moderation`")
+        embed.add_field(name="‣ Utility commmands:", inline=False, value="`p!commands utility`")
         embed.add_field(name="‣ Information commands: (Coming Soon)", inline=False, value="`p!commands information`")
         embed.add_field(name="‣ Fun commands: (Coming Soon)", inline=False, value="`p!commands fun`")
-        embed.add_field(name="‣ Utility commmands: (Coming Soon)", inline=False, value="`p!commands utility`")
         embed.add_field(name="‣ Settings: (Coming Soon)", inline=False, value="`p!commands settings`")
         embed.add_field(name="‣ Music commands: (Coming Soon)", inline=False, value="`p!commands music`")
         embed.set_footer(icon_url=ctx.author.avatar_url_as(size=4096, format=None, static_format="png"),
@@ -38,12 +38,26 @@ class Information(commands.Cog):
         embed = discord.Embed(
             color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
             title="➜ Listing all commands",
-            description=f"‣ All **Moderation** commands \n—\n{moderation}"
+            description=f"‣ All **Moderation** Commands \n—\n{moderation}"
         )
 
         await ctx.send(embed=embed)
 
         logger.info(f"Information | Sent Moderation Commands: {ctx.author}")
+
+    @poly_commands.command()
+    async def utility(self, ctx):
+        utility = "`p!suggest"
+
+        embed = discord.Embed(
+            color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
+            title="➜ Listing all commands",
+            description=f"‣ All **Utility** Commands \n—\n{utility}"
+        )
+
+        await ctx.send(embed=embed)
+
+        logger.info(f"Information | Sent Utility Commands: {ctx.author}")
 
 
 def setup(client):

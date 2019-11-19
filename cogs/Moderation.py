@@ -9,7 +9,7 @@ class Moderation(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.color = (34, 255, 145)
-        self.channel = self.client.get_channel(645801032193933312)
+        self.mod_logging = self.client.get_channel(645801032193933312)
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
@@ -48,7 +48,7 @@ class Moderation(commands.Cog):
             embed3.add_field(name="➜ Moderator:", value=ctx.author)
             embed3.add_field(name="➜ Reason:", value=reason)
 
-            await self.channel.send(embed=embed3)
+            await self.mod_logging.send(embed=embed3)
 
     @warn.error
     async def warn_error(self, ctx, error):
@@ -109,10 +109,9 @@ class Moderation(commands.Cog):
             embed3.add_field(name="➜ Moderator:", value=ctx.author)
             embed3.add_field(name="➜ Reason:", value=reason)
 
-            await self.channel.send(embed=embed3)
+            await self.mod_logging.send(embed=embed3)
 
             await member.send(embed=embed2)
-
 
 
     @kick.error
@@ -175,7 +174,7 @@ class Moderation(commands.Cog):
             embed3.add_field(name="➜ Moderator:", value=ctx.author)
             embed3.add_field(name="➜ Reason:", value=reason)
 
-            await self.channel.send(embed=embed3)
+            await self.mod_logging.send(embed=embed3)
 
             await member.send(embed=embed2)
 
@@ -221,7 +220,7 @@ class Moderation(commands.Cog):
         embed3.add_field(name="➜ Moderator:", value=ctx.author)
         embed3.add_field(name="➜ Reason:", value="N/A")
 
-        await self.channel.send(embed=embed3)
+        await self.mod_logging.send(embed=embed3)
 
         logger.info(f"Moderation | Sent Force Ban: {ctx.author} | Force Banned: {id}")
 
@@ -266,7 +265,7 @@ class Moderation(commands.Cog):
         embed3.add_field(name="➜ Moderator:", value=ctx.author)
         embed3.add_field(name="➜ Reason:", value="N/A")
 
-        await self.channel.send(embed=embed3)
+        await self.mod_logging.send(embed=embed3)
 
         logger.info(f"Moderation | Sent Unban: {ctx.author} | Unbanned: {id}")
 
@@ -305,7 +304,7 @@ class Moderation(commands.Cog):
         embed3.add_field(name="➜ Moderator:", value=ctx.author)
         embed3.add_field(name="➜ Reason:", value="N/A")
 
-        await self.channel.send(embed=embed3)
+        await self.mod_logging.send(embed=embed3)
 
         logger.info(f"Moderation | Sent Purge: {ctx.author} | Purged: {amount} messages")
 
@@ -357,7 +356,7 @@ class Moderation(commands.Cog):
             embed3.add_field(name="➜ Moderator:", value=ctx.author)
             embed3.add_field(name="➜ Reason:", value="N/A")
 
-            await self.channel.send(embed=embed3)
+            await self.mod_logging.send(embed=embed3)
 
             logger.info(f"Moderation | Sent Change Nickname: {ctx.author} | Nickname: {nickname} | To: {member}")
 
@@ -408,7 +407,7 @@ class Moderation(commands.Cog):
             embed3.add_field(name="➜ Moderator:", value=ctx.author)
             embed3.add_field(name="➜ Reason:", value="N/A")
 
-            await self.channel.send(embed=embed3)
+            await self.mod_logging.send(embed=embed3)
 
             logger.info(f"Moderation | Sent Reset Nickname: {ctx.author} | To: {member}")
 
