@@ -17,7 +17,6 @@ testing_token = "NjExMDI0NDMwNjUwNjIxOTcy.XYbJ2w.76U9r1wH7BHdSX0nVVVaGUi-u2U"
 
 
 @client.event
-
 async def on_ready():
     # change_status.start()
     await client.change_presence(activity=discord.Activity(type=0, name="↩ Polymortal ↪"))

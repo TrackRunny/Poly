@@ -47,7 +47,7 @@ class Information(commands.Cog):
 
     @poly_commands.command()
     async def utility(self, ctx):
-        utility = "`p!suggest"
+        utility = "`p!suggest`"
 
         embed = discord.Embed(
             color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
