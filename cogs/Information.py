@@ -19,7 +19,7 @@ class Information(commands.Cog):
         embed.set_thumbnail(url=ctx.guild.icon_url_as(size=4096, format=None, static_format="png"))
         embed.add_field(name="‣ Moderation commands:", inline=False, value="`p!commands moderation`")
         embed.add_field(name="‣ Utility commmands:", inline=False, value="`p!commands utility`")
-        embed.add_field(name="‣ Information commands: (Coming Soon)", inline=False, value="`p!commands information`")
+        embed.add_field(name="‣ Information commands:", inline=False, value="`p!commands information`")
         embed.add_field(name="‣ Fun commands: (Coming Soon)", inline=False, value="`p!commands fun`")
         embed.add_field(name="‣ Settings: (Coming Soon)", inline=False, value="`p!commands settings`")
         embed.add_field(name="‣ Music commands: (Coming Soon)", inline=False, value="`p!commands music`")
