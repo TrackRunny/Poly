@@ -113,7 +113,6 @@ class Moderation(commands.Cog):
 
             await member.send(embed=embed2)
 
-
     @kick.error
     async def kick_error(self, ctx, error):
         if isinstance(error, commands.BadArgument):

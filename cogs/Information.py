@@ -59,6 +59,81 @@ class Information(commands.Cog):
 
         logger.info(f"Information | Sent Utility Commands: {ctx.author}")
 
+    @poly_commands.command()
+    async def information(self, ctx):
+        information = "`p!whois`"
+
+        embed = discord.Embed(
+            color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
+            title="➜ Listing all commands",
+            description=f"‣ All **Information** Commands \n—\n{information}"
+        )
+
+        await ctx.send(embed=embed)
+
+        logger.info(f"Information | Sent Information Commands: {ctx.author}")
+
+    @commands.command(aliases=["whois"])
+    async def userinfo(self, ctx, member: discord.Member):
+        status = {
+            "online": "<:online:648014037010874419>",
+            "idle": "<:idle:648014173543989261>",
+            "offline": "<:offline:648014210525298688>",
+            "dnd": "<:dnd:648014190417674250>"
+        }
+
+        embed = discord.Embed(
+            color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
+            title=f"➜ Userinfo for: {member}",
+            description=f"• Information will be displayed about the user below."
+        )
+        roles = [role for role in member.roles]
+        roles = f" ".join([f"@{role}, " for role in roles])
+
+        embed.set_thumbnail(url=member.avatar_url_as(size=4096, format=None, static_format="png"))
+        embed.add_field(name="‣ Account Name", value=str(member))
+        embed.add_field(name="‣ Discord ID", value=str(member.id))
+        embed.add_field(name="‣ Nickname", value=member.nick or "No nickname.")
+        embed.add_field(name="‣ Account Created At", value=member.created_at.strftime("%A %d, %B %Y"))
+        embed.add_field(name="‣ Account Joined At", value=member.joined_at.strftime("%A %d, %B %Y"))
+        if member.activity is None:
+            embed.add_field(name="‣ Current Activity", value="No current activity.")
+        else:
+            embed.add_field(name="‣ Current Activity", value=member.activity.name)
+        if member.bot is True:
+            embed.add_field(name="‣ Discord Bot? ", value=":robot:")
+        else:
+            embed.add_field(name="‣ Discord Bot?", value=":no_entry_sign:")
+        if member.is_on_mobile() is True:
+            embed.add_field(name="‣ On Mobile Device? ", value=":iphone:")
+        else:
+            embed.add_field(name="‣ On Mobile Device?", value=":no_mobile_phones:")
+        embed.add_field(name="‣ Current Status", value=status[member.status.name])
+        embed.add_field(name="‣ Highest Role", inline=False, value=f"```@{member.top_role}```")
+        # embed.add_field(name="‣ All Roles", inline=False, value=f"```{roles}```")
+
+        await ctx.send(embed=embed)
+
+        logger.info(f"Information | Sent Whois: {ctx.author} | To: {member}")
+
+    @userinfo.error
+    async def userinfo_error(self, ctx, error):
+        if isinstance(error, commands.BadArgument):
+            embed = discord.Embed(
+                color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
+                title="➜ Passed Invalid Member",
+                description="‣ Please mention a valid member. Example: `p!whois @user`"
+            )
+            await ctx.send(embed=embed)
+        if isinstance(error, commands.MissingRequiredArgument):
+            embed = discord.Embed(
+                color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
+                title="➜ Passed Invalid Argument",
+                description="‣ Please put a valid parameter. Example: `p!whois @user`"
+            )
+            await ctx.send(embed=embed)
+
+
 
 def setup(client):
     client.add_cog(Information(client))
