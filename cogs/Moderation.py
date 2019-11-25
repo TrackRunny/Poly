@@ -293,19 +293,27 @@ class Moderation(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
-        await ctx.channel.purge(limit=amount)
+        if amount > 200:
+            embed3 = discord.Embed(
+                color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
+                title=f"➜ Too Many Messages",
+                description=f"‣ Please put a value equal to or under 200 messages."
+            )
+            await ctx.send(embed=embed3)
+        else:
+            await ctx.channel.purge(limit=amount)
 
-        embed3 = discord.Embed(
-            color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
-            title=f"➜ Moderation Logs",
-            description=f"‣ **Purged:** {amount} messages"
-        )
-        embed3.add_field(name="➜ Moderator:", value=ctx.author)
-        embed3.add_field(name="➜ Reason:", value="N/A")
+            embed3 = discord.Embed(
+                color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
+                title=f"➜ Moderation Logs",
+                description=f"‣ **Purged:** {amount} messages"
+            )
+            embed3.add_field(name="➜ Moderator:", value=ctx.author)
+            embed3.add_field(name="➜ Reason:", value="N/A")
 
-        await self.mod_logging.send(embed=embed3)
+            await self.mod_logging.send(embed=embed3)
 
-        logger.info(f"Moderation | Sent Purge: {ctx.author} | Purged: {amount} messages")
+            logger.info(f"Moderation | Sent Purge: {ctx.author} | Purged: {amount} messages")
 
     @purge.error
     async def purge_error(self, ctx, error):
@@ -313,7 +321,7 @@ class Moderation(commands.Cog):
             embed = discord.Embed(
                 color=discord.Color.from_rgb(self.color[0], self.color[1], self.color[2]),
                 title="➜ Invalid Amount Of Messages",
-                description="• Please use a valid number! Example: `l!purge <number>`"
+                description="‣ Please put a valid amount of messages. Example: `p!purge <number>`"
             )
             await ctx.send(embed=embed)
         elif isinstance(error, commands.MissingRequiredArgument):
